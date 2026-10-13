@@ -1,16 +1,11 @@
 services:
   - type: web
-    name: collections-manager
+    name: collections-manager-demo
     runtime: python
-    plan: starter
-    rootDir: .
+    plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: waitress-serve --listen=0.0.0.0:$PORT app:app
+    startCommand: python -c 'from app import init_db; init_db()' && waitress-serve --listen=0.0.0.0:$PORT app:app
     healthCheckPath: /login
-    disk:
-      name: collections-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: SECRET_KEY
         generateValue: true
@@ -19,8 +14,8 @@ services:
       - key: ADMIN_PASSWORD
         generateValue: true
       - key: COLLECTIONS_DB
-        value: /var/data/collections.db
+        value: /tmp/collections-demo.db
       - key: COLLECTIONS_BACKUP_DIR
-        value: /var/data/backups
+        value: /tmp/collections-demo-backups
       - key: COOKIE_SECURE
         value: "1"
