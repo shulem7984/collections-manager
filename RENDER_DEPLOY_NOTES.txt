@@ -1,0 +1,16 @@
+Render deployment starter
+
+This blueprint can help create a hosted pilot. It is NOT a production security approval.
+
+Steps:
+1. Upload this folder to a private GitHub repository.
+2. In Render, choose New + > Blueprint and connect that repository.
+3. Review the blueprint and create the service. A persistent disk may require a paid plan.
+4. After deploy, open the service Environment settings and retrieve the generated ADMIN_PASSWORD value. Store it securely; do not send it in chat.
+5. Open the service URL and sign in with username 'owner' and the generated password.
+6. Immediately change the admin password if the app supports doing so; this starter currently may require an admin user reset procedure if no password-change screen is present.
+
+Important:
+- This starter uses SQLite, not PostgreSQL. It is a pilot only and should not be used with real debtor/customer records until a developer reviews security, access control, backup/restore, and applicable privacy/compliance requirements.
+- Never commit real credentials to GitHub. Keep the repository private.
+- Confirm the host plan and disk cost before creating resources.

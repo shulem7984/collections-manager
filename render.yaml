@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: collections-manager
+    runtime: python
+    plan: starter
+    rootDir: .
+    buildCommand: pip install -r requirements.txt
+    startCommand: waitress-serve --listen=0.0.0.0:$PORT app:app
+    healthCheckPath: /login
+    disk:
+      name: collections-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_USERNAME
+        value: owner
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: COLLECTIONS_DB
+        value: /var/data/collections.db
+      - key: COLLECTIONS_BACKUP_DIR
+        value: /var/data/backups
+      - key: COOKIE_SECURE
+        value: "1"
